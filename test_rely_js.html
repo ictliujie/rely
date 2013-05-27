@@ -1,0 +1,22 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<script type="text/javascript" src="./rely.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">		
+			// example 1
+			RELY.rely(['e1', 'e2'], 'e4');
+			RELY.rely(['e2', 'e3'], 'e5');
+			RELY.rely(['e4', 'e5'], 'e6');
+			RELY.relyList4E('e6');
+			RELY.destroy();
+			// example 2
+			RELY.rely(['做家务', '做家庭作业'], '吃饭');
+			RELY.rely(['烧水', '做家务'], '洗澡');
+			RELY.rely(['吃饭', '洗澡'], '睡觉');
+			RELY.relyList4E('睡觉');
+		</script>
+	</body>
+</html>
