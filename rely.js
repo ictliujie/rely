@@ -23,26 +23,29 @@ RELY = (function(){
 	//注册事件
 	var register = function(evt){
 		//如果事件已经注册，则无需再注册
-		if(typeof eventSet[evt] === 'undefined'){
+		if(!eventSet.hasOwnProperty(evt)){
 			eventSet[evt] = NOT_TRIGGER;
 		}
 	};
 	//触发事件
 	var fire = function(evt){
 		if(eventSet[evt]) return;		
-		var targets = relySet[evt];
+		var targets = relySet[evt],
+			i = j = 0,
+			e = null;
 		//console.log(evt + " has beed fired");
 		document.write(evt + " has beed fired<br/>");
 		eventSet[evt] = HAS_TRIGGER;
-		for(var t in targets){
-			var sl = reverseRelySet[targets[t]];
-			for(var i=0, l=sl.length; i<l; i++){
-				if(!eventSet[sl[i]]){
+		if(!targets) return;
+		for(; e=targets[i]; i++){
+			var sl = reverseRelySet[e];
+			for(j=0, l=sl.length; j<l; j++){
+				if(!eventSet[sl[j]]){
 					break;
 				}
 			}
-			if(i >= sl.length && !eventSet[targets[t]]){
-				fire(targets[t]);					
+			if(j >= sl.length && !eventSet[e]){
+				fire(e);					
 			}
 		}			
 	};
@@ -50,7 +53,7 @@ RELY = (function(){
 	return {
 		/**
 		 * @description 声明依赖关系
-		 * @param srcEvts 原事件，即被依赖事件，可以是单事件或者数组
+		 * @param srcEvts 源事件，即被依赖事件，可以是单事件或者数组
 		 * @param destEvt 目标事件，即依赖事件
 		 */
 		rely: function(srcEvts, destEvt){
